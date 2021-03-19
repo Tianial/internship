@@ -1,10 +1,17 @@
 package com.parcaune.demo.student;
 
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table   // for tables in DB
 public class Student {
-    private long id;
+
+    @GeneratedValue(strategy=GenerationType.AUTO)     //generates automatically id of type LONG for every saved user
+    @Id  // it indicates the attribute id in the DB
+    private Long id;
+
     private String name;
     private String email;
     private LocalDate dob;
@@ -28,11 +35,11 @@ public class Student {
         this.age = age;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
