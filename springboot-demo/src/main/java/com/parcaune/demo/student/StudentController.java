@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController  // for it to undergo http request
 @RequestMapping(path = "api/v1/student")
 public class StudentController {
 
