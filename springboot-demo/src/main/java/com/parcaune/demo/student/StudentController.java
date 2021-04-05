@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController  // for it to undergo http request
-@RequestMapping(path = "api/v1/student")
+@RequestMapping(path = "/api/v1/student")
 public class StudentController {
 
     private final StudentService studentService;
@@ -16,9 +16,14 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
+    @GetMapping()
     public List<Student> getStudents() {
         return studentService.getStudents();
+    }
+
+    @GetMapping("/{id}")
+    public Student getStudentById(@PathVariable("id") Long id) {
+        return studentService.getStudentById(id);
     }
 
     @PostMapping
