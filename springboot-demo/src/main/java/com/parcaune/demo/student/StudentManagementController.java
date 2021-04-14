@@ -20,15 +20,16 @@ public class StudentManagementController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')")
-    public static List<Student> getSTUDENTS(Principal user) {
-        System.out.println("getSTUDENTS");
+    public static List<Student> getStudents(Principal user) {
+        System.out.println("getStudents");
         return STUDENTS;
     }
 
 
     @PostMapping
     @PreAuthorize("hasAuthority('student : write')")
-    public void registerNewStudent(@RequestBody Student student) {
+    public void registerNewStudent(@RequestBody Student student) // @RequestBody maps the student to be created in postman(Jason) into Java Student since they have the same attributes
+    {
         System.out.println("registerNewStudent");
         System.out.println(student);
     }
