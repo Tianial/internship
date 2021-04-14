@@ -6,14 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
- @RequestMapping ("/")
+@RequestMapping("/")
 public class TemplateController {
 
     @GetMapping("login")
-    public String getLoginView(){
+    public String getLogin() {
         return "login"; // redirect to templates/login.html
-    };
+    }
+
+    @GetMapping("courses")
+    public String getCourses() {
+        return "courses";
+    }
 }
-
-
-
