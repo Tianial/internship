@@ -1,7 +1,6 @@
 package com.parcaune.demo.student;
 
 import com.parcaune.demo.exceptions.StudentAppEntityNotFoundException;
-import com.sun.xml.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +33,11 @@ public class StudentService {
     public void addNewStudent(Student student) {
         System.out.println(student);
         studentRepository.save(student);
+    }
+
+    public void deleteStudent(Long studentId) {
+        System.out.println("Delete student with  student id" + studentId);
+        studentRepository.deleteById(studentId);
     }
 
 }

@@ -3,7 +3,6 @@ package com.parcaune.demo.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,8 +13,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static com.parcaune.demo.security.ApplicationUserPermission.*;
+import java.util.concurrent.TimeUnit;
+
 import static com.parcaune.demo.security.ApplicationUserRole.*;
 import static com.parcaune.demo.security.ApplicationUserRole.STUDENT;
 
@@ -24,7 +25,7 @@ import static com.parcaune.demo.security.ApplicationUserRole.STUDENT;
 @EnableGlobalMethodSecurity(prePostEnabled = true)   //permitts preAuthorisation
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private  final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired  //spring instantiate
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder) {
@@ -35,39 +36,59 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                //.csrf().disable()// TODO
+                .csrf().disable()
                 //csrf generation
-                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
+                //.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                //.and()
                 .authorizeRequests()
-                .antMatchers("/","index","/css/*","/js/*").permitAll()
+                .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
                 .antMatchers("/api/**").hasRole(STUDENT.name())  // will protect the url(api for students(Role based authentification))
-/*
+
+                /*
                 .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAuthority(COURSE_WRITE.getPermissions()) // the path hier should have the COURSE_WRITE authority(role) thanks to antmatchers
                 .antMatchers(HttpMethod.POST,"/management/api/**").hasAuthority(COURSE_WRITE.getPermissions()) // will protect the url(api for students(Role based authentification))
                 .antMatchers(HttpMethod.PUT,"/management/api/**").hasAuthority(COURSE_WRITE.getPermissions())// will protect the url(api for students(Role based authentification))
                 .antMatchers(HttpMethod.GET,"/management/api/**").hasAnyRole(ADMINTRAINEE.name(), ADMIN.name())
-**/
+                 */
+
                 .anyRequest()
                 .authenticated()
                 .and()
-               // .httpBasic();  // Basic Authentification
+                // .httpBasic();  // Basic Authentification
                 .formLogin() // form based authentification
-                .loginPage("/login").permitAll(); //introducing a new login page in App and permitting all urls
+                    .loginPage("/login")
+                    .permitAll()
+                    .defaultSuccessUrl("/courses", true) //introducing a new login page in App and permitting all urlsdefau
+                    .and()
+                   // .rememberMe(); // default for 2 weeks
+                    .rememberMe()
+                    .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21)) //permitts to prolonge the sessionID
+                .key("somethingverysecured")  // permitts to ash the credentials in md5 Hash
+                .rememberMeParameter("remember-me")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                //line 63 is used onlybecause the
 
-
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) // https://docs.spring.io/spring-security/site/docs/4.2.12.RELEASE/apidocs/org/springframework/security/config/annotation/web/configurers/LogoutConfigurer.html
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "remember-me")
+                .logoutSuccessUrl("/login");//at this stage the cookies are indirectly deleted
+                    //.passwordParameter("password")
+                   // .usernameParameter("username");
     }
 
     @Override
     @Bean // creates an object that bean will manage of type UserDetailsService
     //the method userDetail to retrieve a student from Db
     public UserDetailsService userDetailsServiceBean() throws Exception {
-       UserDetails montheuser = User.builder()
+        UserDetails montheuser = User.builder()
                 .username("Monthe")
                 .password(passwordEncoder.encode("password"))
                 //.roles(STUDENT.name()) //spring understands this line as ROLE_STUDENT
-               .authorities(STUDENT.getGrantedAuthorities())
-               .build();
+                .authorities(STUDENT.getGrantedAuthorities())
+                .build();
 
 
         UserDetails tianiuser = User.builder()
@@ -85,10 +106,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .build();
 
 
-        return new InMemoryUserDetailsManager(montheuser,tianiuser,Aliceuser);
+        return new InMemoryUserDetailsManager(montheuser, tianiuser, Aliceuser);
     }
-
-
 
 
 }
