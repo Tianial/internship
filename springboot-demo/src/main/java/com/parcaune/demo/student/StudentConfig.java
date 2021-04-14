@@ -11,15 +11,15 @@ import java.util.List;
 @Configuration
 public class StudentConfig {
     @Bean
-    CommandLineRunner commandLineRunner(StudentRepository repository){
-        return args -> {
-            Student Tiani =new Student("Tiani","tiani@parcaune.com", LocalDate.of(2017, Month.JUNE,21),4);  // id is removed b/c it is generated automatically from the DB
+    // CLR passes through every annotations @.., and comes directly in the interface CommandlineRunner and execute what is inside.
+    CommandLineRunner commandLineRunner(StudentRepository studentRepository)  // by givx  as parameter studentRepository of type StudentRepository, we are injecting the DB hier for the informations in bracket to be stored
+    {
+        return (args) -> {
+            Student tiani =new Student("tiani","tiani@parcaune.com", LocalDate.of(2017, Month.JUNE,21),4);  // id is removed b/c it is generated automatically from the DB
 
-            Student Alice = new Student("Alice","alice@parcaune.com", LocalDate.of(2018, Month.JUNE,21),3);
+            Student alice = new Student("alice","alice@parcaune.com", LocalDate.of(2018, Month.JUNE,21),3);
 
-            repository.saveAll(List.of(Tiani,Alice));  //to save in the DB create a list
-
-
+            studentRepository.saveAll(List.of(tiani,alice));  //to save the student list in the DB.//creates an array or list with tiani and alice inside
         };
     }
 }
