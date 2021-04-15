@@ -2,11 +2,13 @@ package com.parcaune.demo.student;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
+//@Entity also makes sure that the class maps to any DB that will be configued
 @Entity  //takes a row in the table of Db and maps or transforms in to the class Student in Java
 @Table   // for tables in DB
-public class Student {
+public class Student implements Serializable {
 
     @GeneratedValue(strategy=GenerationType.AUTO)     //generates automatically id of type LONG for every saved user
     @Id  // it indicates the attribute id in the DB (le champs sur lequell sa se trouve est ma cle primaire
