@@ -54,7 +54,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                // .httpBasic();  // Basic Authentification
+                .httpBasic();  // Basic Authentification
+        /*
                 .formLogin() // form based authentification
                     .loginPage("/login")
                     .permitAll()
@@ -77,6 +78,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login");//at this stage the cookies are indirectly deleted
                     //.passwordParameter("password")
                    // .usernameParameter("username");
+
+         */
     }
 
     @Override
