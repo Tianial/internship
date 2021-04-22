@@ -36,7 +36,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .cors().and().csrf().disable()
                 //csrf generation
                 //.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 //.and()
