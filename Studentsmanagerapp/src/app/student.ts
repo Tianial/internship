@@ -4,4 +4,8 @@ export interface Student {
   email: string;
   dob: Date;
   age: number;
+  phone: string;
+  imageUrl: string;
+  studentCode: string;
+  studentCategory:string;
 }
