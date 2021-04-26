@@ -18,23 +18,35 @@ public class Student implements Serializable {
     private String email;
     private LocalDate dob;
     private Integer age;
+    private  String phone;
+    private String imageUrl;
+    private String studentCode;
+    private String studentCategory;
 
     public Student() {
     }
 
-    public Student(long id, String name, String email, LocalDate dob, Integer age) {
+    public Student(Long id, String name, String email, LocalDate dob, Integer age, String phone, String imageUrl, String studentCode, String studentCategory) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.dob = dob;
         this.age = age;
+        this.phone = phone;
+        this.imageUrl = imageUrl;
+        this.studentCode = studentCode;
+        this.studentCategory = studentCategory;
     }
 
-    public Student(String name, String email, LocalDate dob, Integer age) {
+    public Student(String name, String email, LocalDate dob, Integer age, String phone, String imageUrl, String studentCode, String studentCategory) {
         this.name = name;
         this.email = email;
         this.dob = dob;
         this.age = age;
+        this.phone = phone;
+        this.imageUrl = imageUrl;
+        this.studentCode = studentCode;
+        this.studentCategory = studentCategory;
     }
 
     public Long getId() {
@@ -75,6 +87,38 @@ public class Student implements Serializable {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getStudentCode() {
+        return studentCode;
+    }
+
+    public void setStudentCode(String studentCode) {
+        this.studentCode = studentCode;
+    }
+
+    public String getStudentCategory() {
+        return studentCategory;
+    }
+
+    public void setStudentCategory(String studentCategory) {
+        this.studentCategory = studentCategory;
     }
 
     @Override
