@@ -14,8 +14,8 @@ import java.util.List;
 public class StudentManagementController {
 
     private static final List<Student>STUDENTS = Arrays.asList(
-            new Student("Tiani","tiani@parcaune.com", LocalDate.of(2017, Month.JUNE,21),4),
-            new Student("Alice","alice@parcaune.com", LocalDate.of(2018, Month.JUNE,21),4)
+            new Student("Tiani","tiani@parcaune.com", LocalDate.of(2017, Month.JUNE,21),4,"234567876543","assets/images/pic3.jpeg","678","Head of class"),
+            new Student("Alice","alice@parcaune.com", LocalDate.of(2018, Month.JUNE,21),4,"3456789","assets/images/pic1.jpeg","564","Delegate")
     );
 
     @GetMapping
