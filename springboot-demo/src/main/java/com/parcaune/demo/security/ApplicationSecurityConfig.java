@@ -42,7 +42,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.and()
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                .antMatchers("/api/**").hasRole(STUDENT.name())  // will protect the url(api for students(Role based authentification))
+                .antMatchers("/api/**").permitAll()  // will protect the url(api for students(Role based authentification))
+               // .antMatchers("/api/**").hasRole(STUDENT.name())  // will protect the url(api for students(Role based authentification))
 
                 /*
                 .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAuthority(COURSE_WRITE.getPermissions()) // the path hier should have the COURSE_WRITE authority(role) thanks to antmatchers
