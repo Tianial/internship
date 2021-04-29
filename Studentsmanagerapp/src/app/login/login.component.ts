@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CredentialsDto} from "../common/model/credentials.dto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  public credentials: CredentialsDto = {
+    username: '',
+    password: ''
+  };
+
+
+  constructor(
+    private route: Router,
+  ) {
+  }
 
   ngOnInit(): void {
+  }
+
+  login(): void {
+    //TODO: Navigate to student list after login
   }
 
 }
