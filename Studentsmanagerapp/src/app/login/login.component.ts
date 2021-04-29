@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    private route: Router,
+    private router: Router,
   ) {
   }
 
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    //TODO: Navigate to student list after login
+    this.router.navigate(['/main']);
   }
 
 }
