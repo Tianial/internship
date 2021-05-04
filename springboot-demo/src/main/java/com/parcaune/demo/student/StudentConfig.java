@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.List;
+import java.util.Arrays;
 
 @Configuration
 public class StudentConfig {
@@ -19,7 +19,7 @@ public class StudentConfig {
 
             Student alice = new Student("alice","alice@parcaune.com", LocalDate.of(2018, Month.JUNE,21),3,"3456789","assets/images/pic1.jpeg","564","Delegate");
 
-            studentRepository.saveAll(List.of(tiani,alice));  //to save the student list in the DB.//creates an array or list with tiani and alice inside
+            studentRepository.saveAll(Arrays.asList(tiani,alice));  //to save the student list in the DB.//creates an array or list with tiani and alice inside
         };
     }
 }

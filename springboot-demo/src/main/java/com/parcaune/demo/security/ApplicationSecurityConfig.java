@@ -1,8 +1,10 @@
 package com.parcaune.demo.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,18 +14,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import java.util.concurrent.TimeUnit;
 
 import static com.parcaune.demo.security.ApplicationUserRole.*;
-import static com.parcaune.demo.security.ApplicationUserRole.STUDENT;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)   //permitts preAuthorisation
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    @Qualifier("userDetailsServiceImpl")
+    private UserDetailsService userDetailsService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -42,8 +43,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.and()
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-              //  .antMatchers("/api/**").permitAll()  // will protect the url(api for students(Role based authentification))
-                .antMatchers("/api/**").hasRole(STUDENT.name())  // will protect the url(api for students(Role based authentification))
+                .antMatchers("/api/v1/auth/**").permitAll()
+                .antMatchers("/api/v1/student/**").permitAll()  // will protect the url(api for students(Role based authentification))
+               // .antMatchers("/api/**").hasRole(STUDENT.name())  // will protect the url(api for students(Role based authentification))
 
                 /*
                 .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAuthority(COURSE_WRITE.getPermissions()) // the path hier should have the COURSE_WRITE authority(role) thanks to antmatchers
@@ -113,5 +115,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         return new InMemoryUserDetailsManager(montheuser, tianiuser, Aliceuser);
     }
 
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
 
 }
