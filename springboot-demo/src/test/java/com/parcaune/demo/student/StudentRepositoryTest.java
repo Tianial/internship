@@ -19,7 +19,7 @@ class StudentRepositoryTest  // Test in Repository
 
     @AfterEach
     void tearDown() {
-        underTests.deleteAll();
+        underTests.deleteAll();   // for each test,it has to be deleted
 
     }
 
