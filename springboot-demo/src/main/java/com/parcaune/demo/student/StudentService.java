@@ -1,5 +1,6 @@
 package com.parcaune.demo.student;
 
+import com.parcaune.demo.exceptions.StudentAppBadRequestException;
 import com.parcaune.demo.exceptions.StudentAppEntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,13 @@ public class StudentService {
     }
 
     public void addNewStudent(Student student) {
-        System.out.println(student);
-        studentRepository.save(student);
+        Boolean existsEmail = studentRepository.selectExistsEmail(student.getEmail());
+
+        if (existsEmail) {
+            throw new StudentAppBadRequestException("Email " + student.getEmail() + " taken");
+        }
+
+        studentRepository.save(student); // we want to capture the value student(recieves the capture value
     }
 
     public void deleteStudent(Long studentId) {
