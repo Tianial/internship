@@ -4,9 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-
 @Repository //  b/c interface responsible for Data Access     //waits for the types in <>
-public interface StudentRepository extends JpaRepository<Student,Long>{
+public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query("" +
             "SELECT CASE WHEN COUNT(s) > 0 THEN " +
@@ -14,9 +13,7 @@ public interface StudentRepository extends JpaRepository<Student,Long>{
             "FROM Student s " +
             "WHERE s.email = ?1"
     )
-
-    Boolean selectExistsEmail(String email);
-
+    Boolean selectExistsEmail(String email);  // only method to be tested in this case
 
 }
 
