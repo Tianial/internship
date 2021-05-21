@@ -24,18 +24,18 @@ class StudentRepositoryTest  // Test in Repository
     }
 
     @Test
-    void itShouldCheckIfStudentEmailExists(){
+    void itShouldCheckIfStudentEmailExists() {
         //given
 
-        Student student=new Student(
-                "Tiani","tiani@parcaune.com", LocalDate.of(2017, Month.JUNE,21),4,"345678987654","assets/images/pic3.jpeg","456","student"
+        Student student = new Student(
+                "Tiani", "tiani@parcaune.com", LocalDate.of(2017, Month.JUNE, 21), 4, "345678987654", "assets/images/pic3.jpeg", "456", "student"
         );
 
         underTests.save(student); // saves all students
 
         //when
-        String email="tiani@parcaune.com";
-        Boolean expected= underTests.selectExistsEmail(email); // selectExistsEmail(email) is being tested
+        String email = "tiani@parcaune.com";
+        Boolean expected = underTests.selectExistsEmail(email); // selectExistsEmail(email) is being tested
 
 
         //then
@@ -45,13 +45,13 @@ class StudentRepositoryTest  // Test in Repository
     }
 
     @Test
-    void itShouldCheckIfStudentEmailDoesnotExists(){
+    void itShouldCheckIfStudentEmailDoesnotExists() {
         //given
 
-        String email="tiani@parcaune.com";
+        String email = "tiani@parcaune.com";
 
 
-        Boolean expected= underTests.selectExistsEmail(email); // selectExistsEmail(email) is being tested
+        Boolean expected = underTests.selectExistsEmail(email); // selectExistsEmail(email) is being tested
 
 
         //then
