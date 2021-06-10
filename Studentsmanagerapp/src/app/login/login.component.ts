@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CredentialsDto} from "../common/model/credentials.dto";
 import {Router} from "@angular/router";
+import {AuthentificationService} from "../service/authentification.service";
 
 @Component({
   selector: 'app-login',
@@ -10,13 +11,15 @@ import {Router} from "@angular/router";
 export class LoginComponent implements OnInit {
 
   public credentials: CredentialsDto = {
-    username: '',
-    password: ''
+    username: null,
+    password: null
   };
 
+  public errorMessage: string;
 
   constructor(
     private router: Router,
+    private authService: AuthentificationService
   ) {
   }
 
@@ -24,7 +27,18 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.router.navigate(['/main']);
+    this.authService.login(this.credentials)
+      .subscribe({
+        next: (userResponse) => {
+          this.router.navigate(['/main']);
+        },
+        error: (errorResponse) => {
+          this.errorMessage = 'Login failed. Please try again.';
+          console.error({errorResponse})
+        }
+      });
+    //
   }
+
 
 }
