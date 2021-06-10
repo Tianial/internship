@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-banner',
@@ -7,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BannerComponent {
 
-  title = 'banner works'
+  title = 'banner works';
+  hideContent = true;
+  severity = 450;
+  name: string;
 
-  todo() {
-
+  toggle() {
+    this.hideContent = !this.hideContent;
   }
+
+
 
 }
