@@ -15,8 +15,15 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles")  //A many-to-many relationship occurs when multiple records in a table are associated with multiple records in another table. and her the owner is "role"
     private Set<User> users;
+
+    public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
 
     @JsonBackReference
     public Set<User> getUsers() {
@@ -42,4 +49,5 @@ public class Role {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
 }

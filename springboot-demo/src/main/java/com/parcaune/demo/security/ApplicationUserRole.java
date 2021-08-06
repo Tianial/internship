@@ -4,10 +4,14 @@ import com.google.common.collect.Sets;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.parcaune.demo.security.ApplicationUserPermission.*;
+
+// The only difference is that enum constants are public , static and final (unchangeable - cannot be overridden). An enum cannot be used to create objects, and it cannot extend other classes (but it can implement interfaces).
 
 public enum ApplicationUserRole {
     STUDENT(Sets.newHashSet()),
@@ -33,4 +37,11 @@ public enum ApplicationUserRole {
 
         return permissions;
     }
+
+    /**
+     * Return all enum values in a String list
+     */
+    public static List<String> getValuesAsList = Stream.of(ApplicationUserRole.values())
+            .map(Enum::name)
+            .collect(Collectors.toList());
 }

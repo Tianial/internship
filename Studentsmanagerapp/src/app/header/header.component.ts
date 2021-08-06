@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Student} from "../student";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import {Student} from "../student";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -38,6 +39,10 @@ export class HeaderComponent implements OnInit {
     // @ts-ignore
     container.appendChild(button);
     button.click()*/
+  }
+
+  goToAddStudent(): void {
+    this.router.navigate(['main/add-new-student'])
   }
 
   public searchStudents(key: string): void {

@@ -16,17 +16,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+
+public class UserDetailsServiceImpl implements UserDetailsService  //
+
+{
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepository; //for researches in DB
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username); // goes in Db and finds  if the username enter by login is present
 
-        if (user == null) throw new UsernameNotFoundException(username);
+        if (user == null) throw new UsernameNotFoundException(username);// If username not found in Db this line is executed if not goes back to linee 35 of AuthController
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (Role role : user.getRoles()) {

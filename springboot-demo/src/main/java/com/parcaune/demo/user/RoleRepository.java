@@ -8,4 +8,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     public List<Role> findAllByNameIsIn(List<String> roleNames);
 
+    public boolean existsByNameEquals(String roleName);
+
 }

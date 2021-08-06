@@ -4,6 +4,7 @@ import {LoginComponent} from "./login/login.component";
 import {MainComponent} from "./main/main.component";
 import {StudentListComponent} from "./student-list/student-list.component";
 import {AddNewStudentComponent} from "./add-new-student/add-new-student.component";
+import {StudentEditComponent} from "./student-edit/student-edit.component";
 
 const MAIN_CHILD_ROUTES: Routes = [
   {
@@ -15,9 +16,13 @@ const MAIN_CHILD_ROUTES: Routes = [
     component: AddNewStudentComponent
   },
   {
+    path: 'edit-student/:id',
+    component: StudentEditComponent
+  },
+  {
     path: '**',
     redirectTo: 'student-list'
-  }
+  },
 ];
 
 const routes: Routes = [
@@ -28,6 +33,7 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+
   {
     path: 'main',
     component: MainComponent,

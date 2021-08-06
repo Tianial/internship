@@ -1,0 +1,42 @@
+<!-- Edit Modal -->
+
+  <div class="card" role="document">
+      <div class="card-header">
+        <h5 class="card-title" id="updateStudentModalLabel">Edit Student {{editStudent?.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="card-body">
+        <form #editForm="ngForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <!--ngModel name="name" syntax used so that the form should be return in a way angular understands. name here is the key for the input-->
+            <input type="text" [(ngModel)]="student.name" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+          </div>
+          <input type="hidden" [(ngModel)]="student.email" name="id" class="form-control" id="id" placeholder="Email">
+          <input type="hidden" [(ngModel)]="student.email" name="userCode" class="form-control" id="userCode" placeholder="Email">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" [(ngModel)]="student.email" name="email" class="form-control" id="email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="phone">studentCategory</label>
+            <input type="text" [(ngModel)]="student.studentCategory" name="studentCategory" class="form-control" id="studentCategory" placeholder="Student Category">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" [(ngModel)]="student.phone" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
+          </div>
+          <div class="form-group">
+            <label for="phone">Image URL</label>
+            <input type="text" [(ngModel)]="student.imageUrl" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+            <button (click)="onUpdateStudent(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+

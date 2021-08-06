@@ -1,1 +1,50 @@
-<p>add-new-student works!</p>
+<!-- Add Student Modal -->
+
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title" id="addStudentModalLabel">Add Student</h5>
+
+  </div>
+  <div class="modal-body">
+
+
+    <!--#addForm="ngForm" syntax to add an additional form in App -->
+    <form #addForm="ngForm" (ngSubmit)="onAddStudent(addForm)">
+      <div class="form-group">
+      <label for="name">Name</label>
+
+      <!--ngModel name="name" syntax used so that the form should be return in a way angular understands. name here is the key for the input-->
+      <input type="text" ngModel name="name" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+  </div>
+
+
+      <div class="form-group">
+        <label for="email">Email Adress</label>
+        <input type="text" ngModel name="Email Adress" class="form-control" id="email"
+               placeholder="enter email adress" required>
+      </div>
+
+      <div class="form-group">
+        <label for="Phone number">Phone number</label>
+        <input type="text" ngModel name="Phone number" class="form-control" id="Phone number"
+               placeholder="enter Phone number" required>
+      </div>
+
+
+
+      <div class="form-group">
+        <label for="Student Category">student Category</label>
+        <input type="text" ngModel name="studentCategory" class="form-control" id="Student Category"
+               placeholder="Student Category" required>
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" id="add-student-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        <!--[disabled] is to disable the button if the form is invalid(not totally filled)-->
+        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" (click)="savechanges()">Add new student </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -28,15 +28,16 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.authService.login(this.credentials)
-      .subscribe({
-        next: (userResponse) => {
-          this.router.navigate(['/main']);
-        },
-        error: (errorResponse) => {
-          this.errorMessage = 'Login failed. Please try again.';
-          console.error({errorResponse})
-        }
-      });
+      .subscribe(
+        {
+          next: (userResponse) => {
+            this.router.navigate(['/main']);
+          },
+          error: (errorResponse) => {
+            this.errorMessage = 'Login failed. Please try again.';
+            console.error({errorResponse})
+          },
+        });
     //
   }
 

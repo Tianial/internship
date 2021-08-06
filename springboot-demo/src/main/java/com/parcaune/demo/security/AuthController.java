@@ -5,7 +5,6 @@ import com.parcaune.demo.user.Credentials;
 import com.parcaune.demo.user.User;
 import com.parcaune.demo.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,14 +22,15 @@ public class AuthController {
     private UserService userService;
 
     @Autowired
-    private HttpServletRequest request;
+    private HttpServletRequest request; // HttpServletRequest contains the actual request for it to be later on executed in line 32
 
     @PostMapping("/login")
-    public ResponseEntity<User> loginUser(@RequestBody Credentials credentials) {
+    public User loginUser(@RequestBody Credentials credentials) {
         try {
-            request.login(credentials.getUsername(), credentials.getPassword());
+            // after request.login is called ,compiler jumps directly in UserDetailServiceImp
+            request.login(credentials.getUsername(), credentials.getPassword()); // request start execution here
             User user = userService.getUserByUsername(credentials.getUsername());
-            return ResponseEntity.ok(user);
+            return user;
         } catch (ServletException e) {
             throw new StudentAppRunTimeException("Login failed");
         }
@@ -54,7 +54,8 @@ public class AuthController {
                 Cookie cookieToDelete = new Cookie(cookieName, null);
                 cookieToDelete.setMaxAge(0);
             }
-        };
+        }
+        ;
     }
 
 }

@@ -13,7 +13,7 @@ public class UserService {
     public User getUserByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new StudentAppEntityNotFoundException(String.format("User with username [%s] unfortunately not found", username));
+            throw new StudentAppEntityNotFoundException("User with username [" + username + "] unfortunately not found");
         }
         return user;
     }

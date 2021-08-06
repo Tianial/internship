@@ -21,7 +21,7 @@
       </ul>
       <div class="card-body">
         <div class="float-right btn-group btn-group-sm">
-          <a (click)="onOpenModal(student, 'edit')" class="btn btn-primary tooltips" data-placement="top"
+          <a (click)="goToEditStudent(student.id)" class="btn btn-primary tooltips" data-placement="top"
              data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
           <a (click)="onOpenModal(student, 'delete')" class="btn btn-secondary tooltips" data-placement="top"
              data-original-title="Delete"><i class="fa fa-times"></i></a>
@@ -31,85 +31,8 @@
   </div>
 </div>
 
-<!-- Add Student Modal -->
-<div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!--#addForm="ngForm" syntax to add an additional form in App -->
-        <form #addForm="ngForm" (ngSubmit)="onAddStudent(addForm)">
 
 
-          <div class="form-group">
-            <label for="phone">student Category</label>
-            <input type="text" ngModel name="studentCategory" class="form-control" id="Student Category" placeholder="Student Categorye" required>
-          </div>
-
-
-          <div class="modal-footer">
-            <button type="button" id="add-student-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-            <!--[disabled] is to disable the button if the form is invalid(not totally filled)-->
-            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Edit Modal -->
-<div class="modal fade" id="updateStudentModal" tabindex="-1" role="dialog" aria-labelledby="studentEditModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateStudentModalLabel">Edit Student {{editStudent?.name}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form #editForm="ngForm">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <!--ngModel name="name" syntax used so that the form should be return in a way angular understands. name here is the key for the input-->
-            <input type="text" ngModel="{{editStudent?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
-          </div>
-          <input type="hidden" ngModel="{{editStudent?.id}}" name="id" class="form-control" id="id" placeholder="Email">
-          <input type="hidden" ngModel="{{editStudent?.studentCode}}" name="userCode" class="form-control" id="userCode" placeholder="Email">
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" ngModel="{{editStudent?.email}}" name="email" class="form-control" id="email" placeholder="Email">
-          </div>
-          <div class="form-group">
-            <label for="phone">studentCategory</label>
-            <input type="text" ngModel="{{editStudent?.studentCategory}}" name="studentCategory" class="form-control" id="studentCategory" placeholder="Student Category">
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text" ngModel="{{editStudent?.phone}}" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
-          </div>
-          <div class="form-group">
-            <label for="phone">Image URL</label>
-            <input type="text" ngModel="{{editStudent?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-            <button (click)="onUpdateStudent(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Delete Modal -->
 <div class="modal fade" id="deleteStudentModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">

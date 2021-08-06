@@ -12,7 +12,7 @@ import {User} from "../common/model/user";
 import {CredentialsDto} from "../common/model/credentials.dto";
 import {MainComponent} from "../main/main.component";
 
-fdescribe('LoginComponent', () => {
+describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let location: Location;
@@ -68,7 +68,7 @@ fdescribe('LoginComponent', () => {
       fixture.detectChanges();
 
       //NodeList an array of HTML element
-      const errorMessagesElements: NodeList = fixture.nativeElement.querySelectorAll('.text-danger');  // class selector
+      const errorMessagesElements: NodeList = fixture.nativeElement.querySelectorAll('.text-danger');//class
 
       expect(errorMessagesElements.length).toEqual(2);
       expect(errorMessagesElements.item(0).textContent).toContain('This field is required');
@@ -77,7 +77,7 @@ fdescribe('LoginComponent', () => {
 
   });
 
-  it('should login user successfuly and navigate to main component', () => {
+  it('should login user successful and navigate to main component', () => {
     // Given
     const fakeCredentials: CredentialsDto = {
       username: 'admin',

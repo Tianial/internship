@@ -3,6 +3,7 @@ import {Student} from "../student";
 import {StudentService} from "../student.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-student-list',
@@ -17,7 +18,10 @@ export class StudentListComponent implements OnInit {
   public editStudent: Student | undefined;
   public  deleteStudent: Student | undefined;
 
-  constructor(private studentService: StudentService) {
+  constructor(
+    private studentService: StudentService,
+    private router: Router
+  ) {
     console.log("constructor")
   }
 
@@ -55,8 +59,8 @@ export class StudentListComponent implements OnInit {
   }
 
   public getStudentList(): void {
-    this.studentService.getStudent() // Observable
-      .subscribe( // Observer
+    this.studentService.getStudents() // Observable
+      .subscribe( // Observer suscribes recieves the studentlist from backend in next
         (response: Student[]) => {
           console.log({response})
           this.students = response;
@@ -86,31 +90,16 @@ export class StudentListComponent implements OnInit {
         addForm.reset();
 
       }
-    )   //service making calls to the backend,the subscribe is to alays be notified
+    )   //service making calls to the backend,the subscribe is to always be notified
 
   }
 
+/**
 
-  public onUpdateStudent(student:Student):void{
-    // @ts-ignore
-    document.getElementById('add-student-form').click();// when we save the form should go away thanks to this line.the click() is to acess to the click
-    this.studentService.updateStudent(student).subscribe(
-      (response: Student) => {
-        console.log(response);
-        this.getStudentList();
-
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-
-      }
-    )   //service making calls to the backend,the subscribe is to alays be notified
-
-  }
 
   public onDeleteStudent(studentId:number|undefined):void{
     // @ts-ignore
-    document.getElementById('add-student-form').click();// when we save the form should go away thanks to this line.the click() is to acess to the click
+   // document.getElementById('deleteStudentModal').click();// when we save the form should go away thanks to this line.the click() is to acess to the click
     //deleteStudent called from the service
     this.studentService.deleteStudent(studentId as number).subscribe(
       (response: void) => {
@@ -126,7 +115,56 @@ export class StudentListComponent implements OnInit {
 
   }
 
-  onOpenModal(student: Student, edit: string) {
+ **/
+
+
+  public onDeleteStudent(studentId: number): void {
+
+       //deleteStudent called from the service
+    this.studentService.deleteStudent(studentId).subscribe(
+      (response: void) => {
+        console.log(response);
+        this.getStudentList();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );//service making calls to the backend,the subscribe is to alays be notified
+}
+
+
+  onOpenModal(student: Student, mode: string) {
+
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+    if (mode === 'add') {
+      button.setAttribute('data-target', '#addStudentModal');
+    }
+    if (mode === 'edit') {
+      this.editStudent = student;
+      button.setAttribute('data-target', '#updateStudentModal');
+    }
+    if (mode === 'delete') {
+      this.deleteStudent = student;
+      button.setAttribute('data-target', '#deleteStudentModal');
+    }
+    container.appendChild(button);
+    button.click();
 
   }
+
+
+
+  goToEditStudent(studentId: number): void {
+    this.router.navigate(['main/edit-student', studentId])
+  }
+
+  goToAddStudent(): void {
+    this.router.navigate(['add-new-student'])
+  }
+
+
 }

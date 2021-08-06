@@ -23,8 +23,11 @@ public class StudentController {
 
     @GetMapping()
     public List<Student> getStudents() {
+
         return studentService.getStudents();
     }
+
+
 
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable("id") Long id) {
@@ -36,7 +39,7 @@ public class StudentController {
         studentService.addNewStudent(student);
     }
 
-    @DeleteMapping(path = "{studentId}")
+    @DeleteMapping("/{studentId}")
     public void deleteStudent(@PathVariable("studentId") Long studentId ){
         System.out.println("deleteStudent");
         System.out.println(studentId);

@@ -78,7 +78,7 @@ class StudentServiceTest {
 
 
         //Then
-        assertThatThrownBy(() -> underTest.addNewStudent(student))// assure toi que quand on lance lexception,le service.addNewStudent qui prents student
+        assertThatThrownBy(() -> underTest.addNewStudent(student))// be sure  that when an exception is thrown,the service.addNewStudent takes  student
                 .isInstanceOf(StudentAppBadRequestException.class) // a une exception de type StudentAppBadRequestException
                 .hasMessageContaining("Email " + student.getEmail() + " taken");//et contient le message en parenthese
 

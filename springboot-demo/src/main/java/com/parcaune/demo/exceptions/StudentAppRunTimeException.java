@@ -1,5 +1,6 @@
 package com.parcaune.demo.exceptions;
 
+//
 public class StudentAppRunTimeException extends RuntimeException {
     public StudentAppRunTimeException() {
     }

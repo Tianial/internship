@@ -11,6 +11,10 @@ import {StudentListComponent} from './student-list/student-list.component';
 import {HeaderComponent} from './header/header.component';
 import {MainComponent} from './main/main.component';
 import {AddNewStudentComponent} from './add-new-student/add-new-student.component';
+import { StudentEditComponent } from './student-edit/student-edit.component';
+import { StudentDeleteComponent } from './student-delete/student-delete.component';
+import { BannerComponent } from './banner/banner.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,12 @@ import {AddNewStudentComponent} from './add-new-student/add-new-student.componen
     StudentListComponent,
     HeaderComponent,
     MainComponent,
-    AddNewStudentComponent
+    AddNewStudentComponent,
+    StudentEditComponent,
+    StudentDeleteComponent,
+    BannerComponent,
+    WelcomeComponent,
+
   ],
   imports: [
     BrowserModule,

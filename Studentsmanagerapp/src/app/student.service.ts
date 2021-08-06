@@ -9,6 +9,7 @@ import {environment} from "../environments/environment";
 })
 export class StudentService {
 
+
   private apiServiceUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) {
@@ -17,21 +18,25 @@ export class StudentService {
   /**
    * getStudent returns an Observable of type Student[]
    */
-  public getStudent(): Observable<Student[]> {
+  public getStudents(): Observable<Student[]> {
     return this.http.get<Student[]>(`${this.apiServiceUrl}/student`);
   }
 
+  public getStudentById(studentId: string): Observable<Student> {
+    return this.http.get<Student>(`${this.apiServiceUrl}/student/` + studentId);
+  }
+
   public addStudent(student: Student): Observable<Student> {
-    return this.http.post<Student>(`${this.apiServiceUrl}'/api/student`, student);
+    return this.http.post<Student>(`${this.apiServiceUrl}/student`, student);
   }
 
 
   public updateStudent(student: Student): Observable<Student> {
-    return this.http.put<Student>(`${this.apiServiceUrl}'/student`, student);
+    return this.http.put<Student>(`${this.apiServiceUrl}/student`, student);
   }
 
   public deleteStudent(studentId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServiceUrl}'/student/${studentId}`);
+    return this.http.delete<void>(`${this.apiServiceUrl}/student/${studentId}`);
   }
 
 }
